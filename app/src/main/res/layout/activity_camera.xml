@@ -24,7 +24,8 @@
             android:layout_height="match_parent"
             android:src="@drawable/camera"
             android:layout_below="@id/previewtext"
-            android:visibility="gone" />
+            android:layout_above="@+id/editText"
+            android:visibility="visible" />
 
         <!-- To preview video recorded -->
         <VideoView
@@ -39,14 +40,23 @@
         <!-- Capture picture button -->
         <Button
             android:id="@+id/btnCapturePicture"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:text="Take a Picture"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/buttonshape"
+            android:shadowColor="#A81D21"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="5"
+            android:layout_marginTop="24dp"
+            android:textColor="#FFF7F7"
+            android:textSize="15sp"/>
 
         <!-- Record video button -->
         <Button
@@ -58,7 +68,8 @@
             android:layout_marginRight="50dp"
             android:layout_alignBottom="@+id/btnCapturePicture"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="48dp" />
+            android:layout_marginBottom="48dp"
+            android:visibility="gone" />
 
     <EditText
         android:id="@+id/editText"
@@ -75,7 +86,7 @@
         android:id="@+id/spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btnRecordVideo"
+        android:layout_above="@+id/btnCapturePicture"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:layout_toEndOf="@+id/imgPreview"
