@@ -13,10 +13,11 @@
          
          function does_report_exist()
 		{
-			$query = "select u.first_name, u.last_name, u.profile_picture, r.latitude, r.longitude, 
-			r.remarks, r.descriptions, r.date_reported, r.report_picture1, r.report_picture2, 
-			r.report_picture3, r.status, r.commends from users u join reports r 
+			$query = "select CONCAT(u.first_name, ' ', u.last_name) AS FullName, u.profile_picture, r.latitude, r.longitude, 
+		 r.descriptions, r.date_reported, r.report_picture1, r.status, r.commends, s.situation_name from users u join 		reports r 
 			on (u.user_id=r.user_id)
+            join situation s
+            on (s.situation_id=r.situation_id)
 			order by r.date_reported desc";
 			$result = mysqli_query($this->connection, $query);
 			$json = array();
