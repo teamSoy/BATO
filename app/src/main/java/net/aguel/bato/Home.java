@@ -5,7 +5,10 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
+
+import net.aguel.bato.Fragment.Fragment_Account;
+import net.aguel.bato.Fragment.Fragment_Camera;
+import net.aguel.bato.Fragment.Fragment_Feed;
 
 public class Home extends AppCompatActivity {
 
