@@ -7,13 +7,13 @@
         android:title="Bulletin" />
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_camera"
         android:icon="@drawable/camera"
         android:title="Camera" />
 
     <item
-        android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:id="@+id/navigation_account"
+        android:icon="@drawable/ic_person_black_24dp"
         android:title="Home" />
 
 </menu>
