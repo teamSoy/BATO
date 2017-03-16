@@ -13,7 +13,7 @@
          
          function does_user_exist($username,$password)
 		{
-			$query = "select * from user_account where username = '$username'and Password = '$password' OR email_address = '$username' and Password = '$password'";
+			$query = "select * from users where username = '$username'and Password = '$password' OR email_address = '$username' and Password = '$password'";
 			$result = mysqli_query($this->connection,$query);
                         $row = mysqli_fetch_row($result);
 			if(mysqli_num_rows($result) > 0)

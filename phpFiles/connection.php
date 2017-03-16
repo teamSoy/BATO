@@ -1,7 +1,7 @@
 <?php
 	define('hostname','localhost');
-	define('username','edc');
-	define('password','test2016');
+	define('username','root');
+	define('password','linux');
 	define('databasename','teasoy');
 	
 	class DB_Connection

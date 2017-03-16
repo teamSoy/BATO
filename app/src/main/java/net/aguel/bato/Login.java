@@ -53,7 +53,7 @@ public class Login extends Activity
         pDialog = new ProgressDialog(this);
         requestQueue = Volley.newRequestQueue(this);
 
-        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("Server IP Address","http://192.168.43.234").commit();
+        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("Server IP Address","http://192.168.0.100").commit();
 
         password.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -94,7 +94,7 @@ public class Login extends Activity
             pDialog.setMessage("Logging in...");
             pDialog.show();
             String URL  = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("Server IP Address","http://")+"/BATO/phpFiles/login.php";
-            StringRequest request = new StringRequest(Request.Method.POST, URL,new Response.Listener<String>() {
+            StringRequest request = new StringRequest(Request.Method.POST,URL,new Response.Listener<String>() {
                 public void onResponse(String response) {
 
                     try {
