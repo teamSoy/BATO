@@ -8,17 +8,24 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.SharedPreferencesCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
 import net.aguel.bato.R;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -47,39 +54,53 @@ public class Fragment_Camera extends Fragment
     private ImageView imgPreview;
     private VideoView videoPreview;
     private Button btnCapturePicture, btnRecordVideo;
+    private EditText photodescription;
+    TextView previewText;
+    private Spinner spinner;
 
     View myView;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        myView = inflater.inflate(R.layout.activity_camera, container, false);
+        myView = inflater.inflate(R.layout.fragment_camera, container, false);
 
         imgPreview = (ImageView) myView.findViewById(R.id.imgPreview);
         videoPreview = (VideoView) myView.findViewById(R.id.videoPreview);
         btnCapturePicture = (Button) myView.findViewById(R.id.btnCapturePicture);
         btnRecordVideo = (Button) myView.findViewById(R.id.btnRecordVideo);
+        photodescription = (EditText) myView.findViewById(R.id.photodesc);
+        previewText = (TextView) myView.findViewById(R.id.previewtext);
+        spinner = (Spinner) myView.findViewById(R.id.spinner);
 
 		/*
 		 * Capture image button click event
-		 */
-        btnCapturePicture.setOnClickListener(new View.OnClickListener() {
+
+
+        imgPreview.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 // capture picture
-                captureImage();
+
+            }
+        });
+        *
+        * */
+
+        captureImage();
+
+
+        btnCapturePicture.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // send file to database
+
             }
         });
 
 		/*
 		 * Record video button click event
 		 */
-        btnRecordVideo.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                // record video
-                recordVideo();
-            }
-        });
 
         // Checking camera availability
         if (!isDeviceSupportCamera()) {
@@ -137,13 +158,13 @@ public class Fragment_Camera extends Fragment
                 previewCapturedImage();
             } else if (resultCode == RESULT_CANCELED) {
                 // user cancelled Image capture
-                Toast.makeText(getActivity().getApplicationContext(),
-                        "User cancelled image capture", Toast.LENGTH_SHORT)
+                Snackbar.make(getView(),
+                        "Click the button again to capture.", Snackbar.LENGTH_LONG)
                         .show();
             } else {
                 // failed to capture image
-                Toast.makeText(getActivity().getApplicationContext(),
-                        "Sorry! Failed to capture image", Toast.LENGTH_SHORT)
+                Snackbar.make(getView(),
+                        "Sorry! Failed to capture image",Snackbar.LENGTH_LONG)
                         .show();
             }
         } else if (requestCode == CAMERA_CAPTURE_VIDEO_REQUEST_CODE) {
@@ -171,6 +192,13 @@ public class Fragment_Camera extends Fragment
             videoPreview.setVisibility(View.GONE);
 
             imgPreview.setVisibility(View.VISIBLE);
+
+            photodescription.setVisibility(View.VISIBLE);
+            spinner.setVisibility(View.VISIBLE);
+            btnCapturePicture.setVisibility(View.VISIBLE);
+            previewText.setVisibility(View.VISIBLE);
+
+
 
             // bimatp factory
             BitmapFactory.Options options = new BitmapFactory.Options();

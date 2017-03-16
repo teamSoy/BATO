@@ -75,8 +75,8 @@
                 android:shadowDx="1"
                 android:shadowDy="1"
                 android:shadowRadius="5"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginTop="8dp"
                 android:text="Register"
                 android:textColor="#FFF7F7"
                 android:textSize="15sp" />

@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             android:src="@drawable/camera"
             android:layout_below="@id/previewtext"
-            android:layout_above="@+id/editText"
+            android:layout_above="@+id/photodesc"
             android:visibility="visible" />
 
         <!-- To preview video recorded -->
@@ -72,7 +72,7 @@
             android:visibility="gone" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/photodesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"

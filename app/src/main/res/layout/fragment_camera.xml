@@ -15,7 +15,8 @@
         android:padding="10dp"
         android:textSize="15dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="invisible"/>
 
     <!-- To display picture taken -->
     <ImageView
@@ -24,7 +25,8 @@
         android:layout_height="match_parent"
         android:src="@drawable/camera"
         android:layout_below="@id/previewtext"
-        android:visibility="gone" />
+        android:layout_above="@+id/photodesc"
+        android:visibility="visible" />
 
     <!-- To preview video recorded -->
     <VideoView
@@ -34,14 +36,17 @@
         android:layout_below="@id/previewtext"
         android:visibility="gone" />
 
+
+
     <!-- Capture picture button -->
     <Button
         android:id="@+id/btnCapturePicture"
-        android:text="Take a Picture"
+        android:text="Upload Photo"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
+        android:layout_marginBottom="16dp"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
@@ -50,20 +55,45 @@
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="5"
-        android:layout_marginBottom="5dp"
         android:layout_marginTop="24dp"
         android:textColor="#FFF7F7"
-        android:textSize="15sp"/>
-    <!-- Record video button
-            <Button
-                android:id="@+id/btnRecordVideo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Record a Video"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
-                android:layout_alignBottom="@+id/btnCapturePicture"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="48dp" />-->
+        android:textSize="15sp"
+        android:visibility="invisible"/>
+
+    <!-- Record video button -->
+    <Button
+        android:id="@+id/btnRecordVideo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Record a Video"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_alignBottom="@+id/btnCapturePicture"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="48dp"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/photodesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:inputType="textMultiLine"
+        android:layout_above="@+id/spinner"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"/>
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnCapturePicture"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_toEndOf="@+id/imgPreview"
+        android:layout_toRightOf="@+id/imgPreview"
+        android:visibility="invisible"/>
 
 </RelativeLayout>

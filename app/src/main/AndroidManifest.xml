@@ -20,7 +20,8 @@
 
         <activity
             android:name=".Splash"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,7 +30,8 @@
         </activity>
         <activity
             android:name=".Login"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.nieljoncarlaguel.deccontroller.Login" />
 
@@ -38,21 +40,14 @@
         </activity>
         <activity
             android:name=".Home"
-            android:label="@string/app_name">
-        </activity>
-
-        <activity
-            android:name=".Camera.Camera"
-            android:label="Camera"
-            android:parentActivityName=".Home" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Home" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".Registration"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 
