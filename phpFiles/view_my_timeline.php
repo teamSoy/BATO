@@ -1,7 +1,7 @@
 <?php
 	require_once 'connection.php';
 	header('Content-Type: application/json');
-	class ViewFollowedReports
+	class ViewFollowedReports // query use to fetch all of your post on your own timeline
 	{
 		private $db;
 		private $connection;

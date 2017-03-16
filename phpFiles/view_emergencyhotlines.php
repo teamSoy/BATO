@@ -1,7 +1,7 @@
 <?php
 	require_once 'connection.php';
 	header('Content-Type: application/json');
-	class ViewEmergencyHotlines
+	class ViewEmergencyHotlines //use to fetch the emergency hotline numbers that allows authorization to immidiately call the said number when pressed
 	{
 		private $db;
 		private $connection;

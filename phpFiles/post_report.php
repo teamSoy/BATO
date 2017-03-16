@@ -1,7 +1,7 @@
 <?php
 	require_once 'connection.php';
 	header('Content-Type: application/json');
-	class PostReport
+	class PostReport // for posting report 
 	{
 		private $db;
 		private $connection;

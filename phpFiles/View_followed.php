@@ -1,7 +1,7 @@
 <?php
 	require_once 'connection.php';
 	header('Content-Type: application/json');
-	class ViewTimeline
+	class ViewTimeline // used for filtering your feed to only display the post of your followed users
 	{
 		private $db;
 		private $connection;

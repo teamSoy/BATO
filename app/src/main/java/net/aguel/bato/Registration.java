@@ -164,7 +164,7 @@ public class Registration extends Activity
     private void addUser()
     {
 
-        String URL  = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("Server IP Address","http://")+"/DEC/query/login.php";
+        String URL  = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("Server IP Address","http://")+"/BATO/phpFiles/register.php";
         StringRequest request = new StringRequest(Request.Method.POST,URL, new Response.Listener<String>()
         {
             public void onResponse(String response)

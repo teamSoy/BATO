@@ -8,7 +8,7 @@
 	{
 		private $connect;
 		function __construct(){
-			$this->connect = mysqli	_connect(hostname,username,password,databasename) or die ("DB Connection Error");
+			$this->connect = mysqli_connect(hostname,username,password,databasename) or die ("DB Connection Error");
 		}
 		public function get_connection()
 		{

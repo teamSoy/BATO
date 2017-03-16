@@ -1,7 +1,7 @@
 <?php
 	require_once 'connection.php';
 	header('Content-Type: application/json');
-	class Register
+	class Register // for register
 	{
 		private $db;
 		private $connection;

@@ -1,5 +1,5 @@
 <?php
-	require_once 'connection.php';
+	require_once 'connection.php'; //php file for displaying all reports 
 	header('Content-Type: application/json');
 	class ViewAllReports
 	{
