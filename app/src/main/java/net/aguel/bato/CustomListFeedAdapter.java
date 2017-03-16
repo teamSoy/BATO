@@ -53,14 +53,6 @@ public class CustomListFeedAdapter extends BaseAdapter {
         // Product name
         Productname.setText(p.getName());
 
-       if(p.getState()==1)
-       {
-           ProductState.setText("ON");
-       }
-       else if(p.getState()==0) {
-
-           ProductState.setText("OFF");
-       }
 
         return convertView;
     }

@@ -64,6 +64,7 @@ public class Login extends Activity
         {
             public void onClick(View v)
             {
+                startActivity(new Intent(getApplicationContext(), Home.class));
                 LoginProcess();
 
             }
