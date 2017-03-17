@@ -49,7 +49,7 @@ public class Fragment_Feed extends Fragment
 
         feedItems = new ArrayList<FeedItem>();
 
-        listAdapter = new FeedListAdapter(getActivity(), feedItems);
+        listAdapter = new FeedListAdapter(getActivity(), feedItems); //comit
         listView.setAdapter(listAdapter);
 
         // We first check for cached request
