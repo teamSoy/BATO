@@ -1,8 +1,11 @@
 package net.aguel.bato.Fragment;
 
 import android.app.ProgressDialog;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,9 +31,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by NielJonCarl on 8/20/2016.
@@ -44,6 +49,7 @@ public class Fragment_Feed extends Fragment
     private String URL_FEED = "http://teasoy.x10host.com/BATO/phpFiles/viewall_reports.php?username=11";
     //"http://api.androidhive.info/feed/feed.json";
 
+    private String address;
     private ProgressDialog pDialog;
 
     View myView;
@@ -57,18 +63,15 @@ public class Fragment_Feed extends Fragment
 
         listAdapter = new FeedListAdapter(getActivity(), feedItems); //comit
         listView.setAdapter(listAdapter);
-/*
         pDialog = new ProgressDialog(getActivity());
         pDialog.setMessage("Loading Bulletin");
         pDialog.setCancelable(false);
         pDialog.show();
-        */
         JsonArrayRequest productReq = new JsonArrayRequest(URL_FEED,new Response.Listener<JSONArray>()
         {
             public void onResponse(JSONArray response)
             {
-                Toast.makeText(getActivity(), "Response Length: "+response.length(), Toast.LENGTH_SHORT).show();
-
+                pDialog.dismiss();
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         JSONObject obj = response.getJSONObject(i);
@@ -87,9 +90,16 @@ public class Fragment_Feed extends Fragment
                         item.setTimeStamp(tsTime+"");
                         //obj.getString("date_reported")
                         // url might be null sometimes
-                        String feedUrl = obj.isNull("profile_picture") ? null : obj
-                                .getString("profile_picture");
-                        item.setUrl(feedUrl);
+                        String feedLongitude = obj.isNull("longitude") ? null : obj
+                                .getString("longitude");
+                        String feedLatitude = obj.isNull("latitude") ? null : obj
+                                .getString("latitude");
+                        Double longitude = Double.parseDouble(feedLongitude);
+                        Double latitude = Double.parseDouble(feedLatitude);
+
+                        getAddress(latitude,longitude);
+
+                        item.setUrl(address);
 
                         feedItems.add(item);
 
@@ -109,5 +119,29 @@ public class Fragment_Feed extends Fragment
 
         AppController.getInstance().addToRequestQueue(productReq);
         return myView;
+    }
+
+
+    public void getAddress(double lat, double lng) {
+        Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
+            Address obj = addresses.get(0);
+            String add = obj.getAddressLine(0);
+            add = add + "\n" + obj.getLocality();
+            add = add + "\n" + obj.getAdminArea();
+            add = add + "\n" + obj.getCountryName();
+            add = add + "\n" + obj.getCountryCode();
+
+            Log.v("IGA", "Address" + add);
+            // Toast.makeText(this, "Address=>" + add,
+            // Toast.LENGTH_SHORT).show();
+            address = add;
+            // TennisAppActivity.showDialog(add);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 }
