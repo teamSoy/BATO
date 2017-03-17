@@ -19,8 +19,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 
 import net.aguel.bato.App.AppController;
-import net.aguel.bato.CustomSOSListAdapter;
-import net.aguel.bato.EmergencyNumbers;
+import net.aguel.bato.Adapters.CustomSOSListAdapter;
+import net.aguel.bato.List.EmergencyNumbers;
 import net.aguel.bato.R;
 
 import org.json.JSONArray;

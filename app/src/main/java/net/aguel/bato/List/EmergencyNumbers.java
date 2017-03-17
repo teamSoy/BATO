@@ -1,4 +1,4 @@
-package net.aguel.bato;
+package net.aguel.bato.List;
 
 /**
  * Created by NielJonCarl on 8/20/2016.

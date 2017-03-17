@@ -1,4 +1,4 @@
-package net.aguel.bato;
+package net.aguel.bato.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import net.aguel.bato.List.EmergencyNumbers;
+import net.aguel.bato.R;
 
 import java.util.List;
 
