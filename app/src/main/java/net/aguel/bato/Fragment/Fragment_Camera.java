@@ -2,12 +2,14 @@ package net.aguel.bato.Fragment;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -351,10 +353,12 @@ public class Fragment_Camera extends Fragment
                 //Creating parameters
                 Map<String,String> params = new Hashtable<String, String>();
 
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                String username = sharedPreferences.getString("userLoggedIn", "");
                 //Adding parameters
                 params.put(KEY_IMAGE, image);
                 params.put(KEY_NAME, name);
-                params.put("username", "user");
+                params.put("username", username);
                 params.put("situation_name", "Collision");
                 params.put("latitude", "14 .611810");
                 params.put("longitude", "121.054047");
