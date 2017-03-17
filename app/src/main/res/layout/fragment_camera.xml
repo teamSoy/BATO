@@ -26,7 +26,7 @@
         android:src="@drawable/camera"
         android:layout_below="@id/previewtext"
         android:layout_above="@+id/photodesc"
-        android:visibility="visible" />
+        android:visibility="invisible" />
 
     <!-- To preview video recorded -->
     <VideoView

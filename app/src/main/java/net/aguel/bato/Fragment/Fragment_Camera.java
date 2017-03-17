@@ -47,7 +47,7 @@ public class Fragment_Camera extends Fragment
     public static final int MEDIA_TYPE_VIDEO = 2;
 
     // directory name to store captured images and videos
-    private static final String IMAGE_DIRECTORY_NAME = "Hello Camera";
+    private static final String IMAGE_DIRECTORY_NAME = "BATO Captured Images";
 
     private Uri fileUri; // file url to store image/video
 

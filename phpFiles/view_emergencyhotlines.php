@@ -11,32 +11,26 @@
 			$this->connection = $this->db->get_connection();
 		}
          
-         function does_emergencyhotline_exist()
+         function emergencyhotline()
 		{
 			$query = "select hotline_name, hotline_number from emergency_hotlines";
-			$result = mysqli_query($this->connection, $query);
+			$result = mysqli_query($this->connection,$query);
 			$json = array();
-			
-			if(mysqli_num_rows($result))
+			if($result === FALSE) 
+			{ 
+				die(mysql_error());
+			}
+			else if(mysqli_num_rows($result))
 			{
 				while($row=mysqli_fetch_assoc($result))
 				{
 					$json[]=$row;
-					
 				}
-			}
-			else
-			{
-				$json['error'] = 'Please check your internet connection';
 			}
 			echo json_encode($json);
 			mysqli_close($this->connection);
 		}
 	}
-	$viewOrders = new ViewEmergencyHotlines();
-	if(isset($_GET['username']))
-	{
-		$username = $_GET['username'];
-		$viewOrders -> does_emergencyhotline_exist();
-	}
+	$viewHotlines = new ViewEmergencyHotlines();
+	$viewHotlines -> emergencyhotline();
 ?> 				
