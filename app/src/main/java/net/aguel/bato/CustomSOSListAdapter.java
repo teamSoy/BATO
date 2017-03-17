@@ -52,7 +52,7 @@ public class CustomSOSListAdapter extends BaseAdapter {
 
         // Product name
         Productname.setText(p.getName());
-        ProductState.setText(p.getNumber());
+        ProductState.setText(p.getNumber()+"");
 
         return convertView;
     }
