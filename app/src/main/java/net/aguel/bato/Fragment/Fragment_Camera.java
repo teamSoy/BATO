@@ -305,7 +305,7 @@ public class Fragment_Camera extends Fragment
     private Bitmap bitmap;
 
 
-    private String UPLOAD_URL ="http://192.168.3.2/upload.php";
+    private String UPLOAD_URL ="http://teasoy.x10host.com/upload.php";
 
     private String KEY_IMAGE = "image";
     private String KEY_NAME = "name";
@@ -338,7 +338,7 @@ public class Fragment_Camera extends Fragment
                         loading.dismiss();
 
                         //Showing toast
-                        Toast.makeText(getActivity(), volleyError.getMessage().toString()+"", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity().getApplicationContext(), volleyError.getMessage().toString()+"", Toast.LENGTH_LONG).show();
                     }
                 }){
             @Override
@@ -354,7 +354,11 @@ public class Fragment_Camera extends Fragment
                 //Adding parameters
                 params.put(KEY_IMAGE, image);
                 params.put(KEY_NAME, name);
-
+                params.put("username", "user");
+                params.put("situation_name", "Collision");
+                params.put("latitude", "14 .611810");
+                params.put("longitude", "121.054047");
+                params.put("descriptions", photodescription.getText().toString());
                 //returning parameters
                 return params;
             }
