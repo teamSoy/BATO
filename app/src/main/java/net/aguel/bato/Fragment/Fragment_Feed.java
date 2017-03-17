@@ -1,23 +1,27 @@
 package net.aguel.bato.Fragment;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.Cache;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import net.aguel.bato.App.AppController;
 import net.aguel.bato.Feed.FeedItem;
 import net.aguel.bato.Feed.FeedListAdapter;
 import net.aguel.bato.Home;
+import net.aguel.bato.List.EmergencyNumbers;
 import net.aguel.bato.R;
 
 import org.json.JSONArray;
@@ -37,8 +41,10 @@ public class Fragment_Feed extends Fragment
     private ListView listView;
     private FeedListAdapter listAdapter;
     private List<FeedItem> feedItems;
-    private String URL_FEED = "http://api.androidhive.info/feed/feed.json";
+    private String URL_FEED = "http://teasoy.x10host.com/BATO/phpFiles/viewall_reports.php?username=11";
+    //"http://api.androidhive.info/feed/feed.json";
 
+    private ProgressDialog pDialog;
 
     View myView;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -51,89 +57,57 @@ public class Fragment_Feed extends Fragment
 
         listAdapter = new FeedListAdapter(getActivity(), feedItems); //comit
         listView.setAdapter(listAdapter);
+/*
+        pDialog = new ProgressDialog(getActivity());
+        pDialog.setMessage("Loading Bulletin");
+        pDialog.setCancelable(false);
+        pDialog.show();
+        */
+        JsonArrayRequest productReq = new JsonArrayRequest(URL_FEED,new Response.Listener<JSONArray>()
+        {
+            public void onResponse(JSONArray response)
+            {
+                Toast.makeText(getActivity(), "Response Length: "+response.length(), Toast.LENGTH_SHORT).show();
 
-        // We first check for cached request
-        Cache cache = AppController.getInstance().getRequestQueue().getCache();
-        Cache.Entry entry = cache.get(URL_FEED);
-        if (entry != null) {
-            // fetch the data from cache
-            try {
-                String data = new String(entry.data, "UTF-8");
-                try {
-                    parseJsonFeed(new JSONObject(data));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        JSONObject obj = response.getJSONObject(i);
+                        FeedItem item = new FeedItem();
+                        item.setId(i);
+                        item.setName(obj.getString("FullName"));
 
-        } else {
-            // making fresh volley request and getting json
-            JsonObjectRequest jsonReq = new JsonObjectRequest(Request.Method.GET,
-                    URL_FEED, null, new Response.Listener<JSONObject>() {
+                        // Image might be null sometimes
+                        String image = obj.isNull("report_picture1") ? null : obj
+                                .getString("report_picture1");
+                        item.setImge(image);
+                        item.setStatus(obj.getString("descriptions"));
+                        item.setProfilePic(obj.getString("profile_picture"));
+                        java.sql.Timestamp ts = java.sql.Timestamp.valueOf(obj.getString("date_reported"));
+                        long tsTime = ts.getTime();
+                        item.setTimeStamp(tsTime+"");
+                        //obj.getString("date_reported")
+                        // url might be null sometimes
+                        String feedUrl = obj.isNull("profile_picture") ? null : obj
+                                .getString("profile_picture");
+                        item.setUrl(feedUrl);
 
-                @Override
-                public void onResponse(JSONObject response) {
-                    VolleyLog.d(TAG, "Response: " + response.toString());
-                    if (response != null) {
-                        parseJsonFeed(response);
+                        feedItems.add(item);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 }
-            }, new Response.ErrorListener() {
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    VolleyLog.d(TAG, "Error: " + error.getMessage());
-                }
-            });
-
-            // Adding request to volley request queue
-            AppController.getInstance().addToRequestQueue(jsonReq);
-        }
-        return myView;
-
-    }
-
-    /**
-     * Parsing json reponse and passing the data to feed view list adapter
-     * */
-    private void parseJsonFeed(JSONObject response) {
-        try {
-            JSONArray feedArray = response.getJSONArray("feed");
-
-            for (int i = 0; i < feedArray.length(); i++) {
-                JSONObject feedObj = (JSONObject) feedArray.get(i);
-
-                FeedItem item = new FeedItem();
-                item.setId(feedObj.getInt("id"));
-                item.setName(feedObj.getString("name"));
-
-                // Image might be null sometimes
-                String image = feedObj.isNull("image") ? null : feedObj
-                        .getString("image");
-                item.setImge(image);
-                item.setStatus(feedObj.getString("status"));
-                item.setProfilePic(feedObj.getString("profilePic"));
-                item.setTimeStamp(feedObj.getString("timeStamp"));
-
-                // url might be null sometimes
-                String feedUrl = feedObj.isNull("url") ? null : feedObj
-                        .getString("url");
-                item.setUrl(feedUrl);
-
-                feedItems.add(item);
+                listAdapter.notifyDataSetChanged();
             }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                Toast.makeText(getActivity(), "Error: "+error, Toast.LENGTH_SHORT).show();
+            }
+        });
 
-            // notify data changes to list adapater
-            listAdapter.notifyDataSetChanged();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
+        AppController.getInstance().addToRequestQueue(productReq);
+        return myView;
     }
-
-
-
-
 }
