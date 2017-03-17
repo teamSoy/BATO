@@ -5,8 +5,10 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -28,13 +30,15 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import static net.aguel.bato.Fragment.Fragment_Camera.MEDIA_TYPE_IMAGE;
+
 public class Registration extends Activity
 {
     RequestQueue requestQueue;
     ProgressDialog pDialog;
 
     /** Variables **/
-    Button signup;
+    Button signup, capture;
     EditText etfname,etlname,etaddress,etemail,etuname,etpword,etrpword;
     String valid_email;
 
@@ -52,6 +56,18 @@ public class Registration extends Activity
         etpword = (EditText) findViewById(R.id.etpassword);
         etuname = (EditText) findViewById(R.id.etusername);
         etrpword = (EditText) findViewById(R.id.etrepeatpass);
+
+        capture = (Button) findViewById(R.id.CaptureButton);
+        capture.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                signup.setEnabled(true);
+            }
+        });
+
+
+        signup.setEnabled(false);
 
         pDialog = new ProgressDialog(this);
         requestQueue = Volley.newRequestQueue(this);

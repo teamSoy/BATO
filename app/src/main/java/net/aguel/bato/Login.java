@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -36,6 +37,7 @@ public class Login extends Activity
     private ProgressDialog pDialog;
     EditText username, password;
     Button LoginButton;
+    Button RegisterButton;
     RequestQueue requestQueue;
 
     protected void onPause() {
@@ -50,6 +52,7 @@ public class Login extends Activity
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
         LoginButton = (Button) findViewById(R.id.LoginButton);
+        RegisterButton = (Button) findViewById(R.id.RegistrationButton);
         pDialog = new ProgressDialog(this);
         requestQueue = Volley.newRequestQueue(this);
 
@@ -70,6 +73,12 @@ public class Login extends Activity
 
         });
 
+        RegisterButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                startActivity(new Intent(getApplicationContext(), Registration.class));
+
+            }
+        });
     }
 
     private void LoginProcess()
