@@ -13,11 +13,12 @@
          
          function does_followedreport_exist($username)
 		{
-			$query = "select u.first_name, u.last_name, u.profile_picture, r.latitude, r.longitude, 
-			r.remarks, r.descriptions, r.date_reported, r.report_picture1, r.report_picture2, 
-			r.report_picture3, r.status, r.commends from users u join reports r join followers f
-			on (u.user_id=r.user_id) where u.user_id = (select user_id from users where username ='$username')
-			order by r.date_reported desc";
+			$query = "select CONCAT(u.first_name, ' ', u.last_name) AS FullName, u.profile_picture, r.latitude, r.longitude, 
+		 r.descriptions, r.date_reported, r.report_picture1, r.status, r.commends, s.situation_name from users u join 		reports r 
+			on (u.user_id=r.user_id)
+            join situation s
+            on (s.situation_id=r.situation_id)
+			 where username='$username' order by r.date_reported desc";
 			$result = mysqli_query($this->connection, $query);
 			$json = array();
 			
