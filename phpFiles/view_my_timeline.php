@@ -18,7 +18,7 @@
 			on (u.user_id=r.user_id)
             join situation s
             on (s.situation_id=r.situation_id)
-			 where username='$username' order by r.date_reported desc";
+			 where u.username='$username' order by r.date_reported desc";
 			$result = mysqli_query($this->connection, $query);
 			$json = array();
 			

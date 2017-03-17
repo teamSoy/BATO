@@ -1,9 +1,11 @@
 package net.aguel.bato.Fragment;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,7 +44,7 @@ public class Fragment_Profile extends Fragment
     private ListView listView;
     private FeedListAdapter listAdapter;
     private List<FeedItem> feedItems;
-    private String URL_FEED = "http://teasoy.x10host.com/BATO/phpFiles/viewall_reports.php?username=11";
+    private String URL_FEED = "";
     //"http://api.androidhive.info/feed/feed.json";
 
     private String address;
@@ -57,10 +59,13 @@ public class Fragment_Profile extends Fragment
 
         feedItems = new ArrayList<FeedItem>();
 
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String username = sharedPreferences.getString("userLoggedIn", "");
+        URL_FEED= "http://teasoy.x10host.com/BATO/phpFiles/view_my_timeline.php?username="+username;
         listAdapter = new FeedListAdapter(getActivity(), feedItems); //comit
         listView.setAdapter(listAdapter);
         pDialog = new ProgressDialog(getActivity());
-        pDialog.setMessage("Loading Bulletin");
+        pDialog.setMessage("Loading Your Reports");
         pDialog.setCancelable(false);
         pDialog.show();
         JsonArrayRequest productReq = new JsonArrayRequest(URL_FEED,new Response.Listener<JSONArray>()
