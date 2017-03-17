@@ -19,7 +19,7 @@
             join situation s
             on (s.situation_id=r.situation_id)
 			order by r.date_reported desc";
-			$result = mysqli_query($this->connection, $query);
+			$result = mysqli_query($this->connection, $query); //asd
 			$json = array();
 			
 			if(mysqli_num_rows($result))
